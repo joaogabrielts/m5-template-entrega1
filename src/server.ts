@@ -1,7 +1,16 @@
-import { app } from "./app";
+import express from 'express';
+import helmet from 'helmet';
+import { TaskRouter } from './routes/taskRoutes';
+import { CategoryRouter } from './routes/categoryRoutes';
 
-const port = process.env.PORT || 3000;
+const app = express();
+app.use(express.json());
+app.use(helmet());
 
-app.listen(port, () => {
-   console.log(`API sucessfully started at port ${port}`);
+// Configuração das rotas
+app.use('/tasks', TaskRouter);
+app.use('/categories', CategoryRouter);
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
