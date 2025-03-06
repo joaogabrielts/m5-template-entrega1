@@ -5,14 +5,12 @@ import { z } from 'zod';
 const prisma = new PrismaClient();
 const router = Router();
 
-// Modelo Zod para validação de tarefas
 const taskSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   content: z.string().min(1, 'Content is required'),
   categoryId: z.number().optional(),
 });
 
-// Criar tarefa
 router.post('/', async (req, res) => {
   try {
     const validated = taskSchema.parse(req.body);
@@ -31,7 +29,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Buscar todas as tarefas
 router.get('/', async (req, res) => {
   try {
     const category = req.query.category ? String(req.query.category) : null;
@@ -54,7 +51,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Buscar tarefa por id
 router.get('/:id', async (req, res) => {
   try {
     const task = await prisma.task.findUnique({
@@ -76,7 +72,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Atualizar tarefa
 router.patch('/:id', async (req, res) => {
   try {
     const validated = taskSchema.parse(req.body);
@@ -99,7 +94,6 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-// Excluir tarefa
 router.delete('/:id', async (req, res) => {
   try {
     await prisma.task.delete({

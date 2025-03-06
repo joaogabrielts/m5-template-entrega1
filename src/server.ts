@@ -7,7 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 
-// Configuração das rotas
 app.use('/tasks', TaskRouter);
 app.use('/categories', CategoryRouter);
 
